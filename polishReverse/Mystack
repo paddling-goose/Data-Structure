@@ -1,0 +1,73 @@
+#include<iostream>
+
+enum Error_code{underflow,overflow,success};
+const int maxstack=100;
+
+
+class Mystack{
+public:
+    Mystack();
+    bool empty()const;
+    bool full()const;
+
+    Error_code push(int &item);
+    Error_code pop();
+    Error_code top(int &item)const;
+    int size();
+        
+private:
+    int count;
+    int entry[maxstack];
+};
+
+
+Mystack::Mystack(){
+    count =0;
+}
+
+bool Mystack::empty()const{
+    bool outcome=true;
+    if(count>0)
+        outcome=false;
+    return outcome;
+}
+
+bool Mystack::full()const{
+    bool outcome =true;
+    if(count==100)
+        outcome=false;
+    return outcome;
+}
+
+Error_code Mystack::push(int &item){
+    if(count==100){
+        return overflow;
+    }else{
+        entry[count++]=item;
+        return success;
+    }
+}
+
+Error_code Mystack::pop(){
+    if(count==0){
+        return underflow;
+    }else{
+        count--;
+        return success;
+    }
+}
+
+Error_code Mystack::top(int &item)const{
+   Error_code outcome=success;
+   if(count ==0)
+        outcome=overflow;
+    else
+        item=entry[count-1];
+    return outcome;
+}
+
+int Mystack::size(){
+    return count;
+}
+
+
